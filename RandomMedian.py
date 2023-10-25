@@ -1,14 +1,12 @@
-# Noa Kehle and Andrew Okerlund
-# nkehle@calpoly.edu apokerlu@calpoly.edu
-# CSC3-349-01 -- Fall 2023
-# Lab 3
-
-import numpy as np
 import QuickSortMedian
 
 ''' Purpose: Sort the arr and pick middle element
     Parameter1 -> Array
     Return     -> Median   '''
+
+def main():
+    into_groups([1, 2, 3, 4, 5, 6, 7, 8, 9], 3)
+
 def find_median(arr, k):
     if len(arr) <= 5:
         QuickSortMedian.merge_sort(arr)
@@ -36,6 +34,31 @@ def find_median(arr, k):
 
 arr = [3,2,1,4,5]
 print("Median: ", find_median(arr, 2))
+
+def fastMedian(Arr, n):
+    '''Function'''
+def into_groups(arr, n):
+    groups = list()
+    length = len(arr)
+
+    for i in range(n):
+        start = i * n
+        end = (i + 1) * n
+        group = arr[start:end]
+
+        if end > length + 1:
+            if len(group) != 0:
+                groups.append(group)
+            #print(groups)
+            return groups
+
+        groups.append(group)
+
+    #print(groups)
+    return groups
+
+
+
 '''
 def into_groups(arr, n):
     groups = list()
