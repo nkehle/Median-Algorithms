@@ -1,9 +1,12 @@
-import numpy as np
 import QuickSortMedian
 
 ''' Purpose: Sort the arr and pick middle element
     Parameter1 -> Array
     Return     -> Median   '''
+
+def main():
+    into_groups([1, 2, 3, 4, 5, 6, 7, 8, 9], 3)
+
 def find_median(arr, k):
     if len(arr) <= 5:
         QuickSortMedian.merge_sort(arr)
@@ -31,6 +34,53 @@ def find_median(arr, k):
 
 arr = [3,2,1,4,5]
 print("Median: ", find_median(arr, 2))
+
+#n is the size of the subarrays 3, 5, 7
+#k is the desired value
+#l is the length
+def fastMedian(Arr, l, k, n):
+    groups = into_groups(Arr, n)
+    medians = list()
+    if len(Arr) <= n:
+        median = QuickSortMedian.find_median(Arr)
+        return median
+
+    for group in groups:
+        medians.append(QuickSortMedian.find_median(group)) #This line may need to be altered
+    pivot = find_median(medians, len(medians) // 2)
+
+    smaller = [element for element in arr if element < pivot]
+    larger = [element for element in arr if element > pivot]
+    equal = [pivot]
+
+    if k < len(smaller):
+        return fastMedian(smaller, k, len(smaller), n)
+    elif k < (len(smaller) + len(equal)):
+        return pivot
+    return fastMedian(larger, (len(Arr) - len(smaller), (k - len(smaller)), n))
+
+def into_groups(arr, n):
+    groups = list()
+    length = len(arr)
+
+    for i in range(n):
+        start = i * n
+        end = (i + 1) * n
+        group = arr[start:end]
+
+        if end > length + 1:
+            if len(group) != 0:
+                groups.append(group)
+            #print(groups)
+            return groups
+
+        groups.append(group)
+
+    #print(groups)
+    return groups
+
+
+
 '''
 def into_groups(arr, n):
     groups = list()
