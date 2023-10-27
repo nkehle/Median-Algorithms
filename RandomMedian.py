@@ -1,32 +1,33 @@
+import numpy as np
+
 import QuickSortMedian
 
 ''' Purpose: Sort the arr and pick middle element
     Parameter1 -> Array
     Return     -> Median   '''
 
-def find_median(arr, k):
-    if len(arr) <= 3:
+def find_median(arr, target):
+    if len(arr) <= 5:
         QuickSortMedian.merge_sort(arr)
         return arr[len(arr) // 2]
 
-    pivot = arr[k]     # random element in the middle
+    pivot = arr[target]  # random element in the middle
 
     left = list()
     right = list()
 
     for num in arr:
-        if num > pivot:
-            right.append(num)
-        else:
+        if num < pivot:
             left.append(num)
+        elif num >= pivot:
+            right.append(num)
 
-    print("Left: ", left)
-    print("Right: ", right)
     pivot_index = len(left)
 
-    if pivot_index < k:
-        return find_median(right, k)
-    elif pivot_index > k:
-        return find_median(left, k)
+    if target < pivot_index:
+        return find_median(left, target)
+    elif target > pivot_index:
+        return find_median(right, target - pivot_index - 1)
     else:
-        return arr[pivot]
+        return pivot
+
