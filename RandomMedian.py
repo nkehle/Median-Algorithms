@@ -35,8 +35,30 @@ def find_median(arr, k):
 arr = [3,2,1,4,5]
 print("Median: ", find_median(arr, 2))
 
-def fastMedian(Arr, n):
-    '''Function'''
+#n is the size of the subarrays 3, 5, 7
+#k is the desired value
+#l is the length
+def fastMedian(Arr, l, k, n):
+    groups = into_groups(Arr, n)
+    medians = list()
+    if len(Arr) <= n:
+        median = QuickSortMedian.find_median(Arr)
+        return median
+
+    for group in groups:
+        medians.append(QuickSortMedian.find_median(group)) #This line may need to be altered
+    pivot = find_median(medians, len(medians) // 2)
+
+    smaller = [element for element in arr if element < pivot]
+    larger = [element for element in arr if element > pivot]
+    equal = [pivot]
+
+    if k < len(smaller):
+        return fastMedian(smaller, k, len(smaller), n)
+    elif k < (len(smaller) + len(equal)):
+        return pivot
+    return fastMedian(larger, (len(Arr) - len(smaller), (k - len(smaller)), n))
+
 def into_groups(arr, n):
     groups = list()
     length = len(arr)
