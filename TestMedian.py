@@ -92,7 +92,7 @@ def compareTime(sizes):
 
 
 ''' ** PLOTTING THE GRAPHS WITH AVERAGE TIMES ** '''
-sizes = [5, 10, 20, 50, 100, 500, 1000, 10000, 100000]
+sizes = [5, 10, 20, 50, 100, 200, 400, 500, 1000, 10000, 100000]
 res = compareTime(sizes)
 print("Quicksort AVG: ", res[0], "\nRandom AVG:    ", res[1], "\nFast K=3 AVG:  ", res[2], "\nFast K=5 AVG:  ", res[3],
       "\nFast K=7 AVG:  ", res[4])
@@ -113,8 +113,8 @@ plt.plot(sizes, res[4], label='K=7', color='yellow', linestyle='-')
 
 # labels
 plt.xlabel('Size of the Array')
-plt.ylabel('Average Time to Find the Median')
-plt.title('Average Runtime of Different Median Algorithms')
+plt.ylabel('Average Time for in (Seconds)')
+plt.title('Average Runtime of Median Algorithms ')
 plt.grid = True
 plt.legend()
 
