@@ -1,3 +1,8 @@
+# Noa Kehle and Andrew Okerlund
+# nkehle@calpoly.edu apokerlu@calpoly.edu
+# CSC3-349-01 -- Fall 2023
+# Lab 3
+
 import numpy as np
 
 import QuickSortMedian
@@ -5,7 +10,6 @@ import QuickSortMedian
 ''' Purpose: Sort the arr and pick middle element
     Parameter1 -> Array
     Return     -> Median   '''
-
 def find_median(arr, target):
     if len(arr) <= 5:
         QuickSortMedian.merge_sort(arr)
