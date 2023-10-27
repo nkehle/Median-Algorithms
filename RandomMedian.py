@@ -5,7 +5,7 @@ import QuickSortMedian
     Return     -> Median   '''
 
 def find_median(arr, k):
-    if len(arr) <= 5:
+    if len(arr) <= 3:
         QuickSortMedian.merge_sort(arr)
         return arr[len(arr) // 2]
 

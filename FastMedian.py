@@ -5,7 +5,7 @@ def find_median(arr, target, k):
         res = QuickSortMedian.merge_sort(arr)
         return res[len(arr) // 2]
 
-    groups = list(into_groups(arr, k))
+    groups = list(gps(arr, k))
     medians = small_medians(groups)
     pivot = find_median(medians, len(medians) // 2, k)
 
@@ -18,7 +18,7 @@ def find_median(arr, target, k):
         else:
             right.append(num)
 
-    pivot_index = len(left)
+    pivot_index = len(left)+1
 
     if pivot_index == target:
         return arr[pivot_index]
@@ -35,7 +35,7 @@ def small_medians(groups):
         res.append(tmp[mid])
     return res
 
-def into_groups(arr, k):
+def gps(arr, k):
     res = []
     idx = 0
     while idx + k < len(arr) - 1:
@@ -44,8 +44,6 @@ def into_groups(arr, k):
     res.append(arr[idx:])
     return res
 
-arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-print("Fast Median: ", find_median(arr, len(arr) // 2, 5))
 
 #Andrews implementation
 
@@ -55,13 +53,14 @@ l is the length"""
 def fastMedian(Arr, k, n):
     groups = into_groups(Arr, n)
     medians = list()
+
     if len(Arr) <= n:
         median = QuickSortMedian.find_median(Arr)
         return median
 
     for group in groups:
         medians.append(QuickSortMedian.find_median(group)) #This line may need to be altered
-    pivot = find_median(medians, len(medians) // 2)
+    pivot = fastMedian(medians, len(medians) // 2, n)
 
     smaller = [element for element in arr if element < pivot]
     larger = [element for element in arr if element > pivot]
@@ -90,3 +89,7 @@ def into_groups(arr, n):
         groups.append(group)
 
     return groups
+
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+print("Noa: ", find_median(arr, len(arr) // 2, 5))
+print("Andrew: ", fastMedian(arr, len(arr) // 2, 5))
