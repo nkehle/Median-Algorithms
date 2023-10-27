@@ -9,8 +9,8 @@ import numpy as np
     Parameter1 -> Array
     Return     -> Median   '''
 def find_median(arr):
-    merge_sort(arr)
-    return arr[len(arr) // 2]       # middle (median)
+    sorted = merge_sort(arr)
+    return sorted[len(arr) // 2]       # middle (median)
 
 ''' Purpose: Sort the arr 
     Parameter1 -> Array
@@ -18,7 +18,7 @@ def find_median(arr):
 def merge_sort(arr):
     # base case -> when there is one element
     if len(arr) <= 1:
-        return arr[0]
+        return arr
 
     # find the middle index to split array into two
     mid = len(arr) // 2
@@ -26,43 +26,30 @@ def merge_sort(arr):
     right = arr[mid:]
 
     # call the sort on the two halves
-    merge_sort(left)
-    merge_sort(right)
+    left = merge_sort(left)
+    right = merge_sort(right)
 
     # merge the two
-    merge(arr, left, right)
+    return merge(left, right)
 
 
 ''' Purpose: to combine the two arrays
     Parameter1 -> Array
     Return     -> Median   '''
-def merge(arr, left, right):
+def merge(left, right):
+    res = []
+
     # for indexing the left right and res
-    i = 0
-    j = 0
-    k = 0
+    i = j = 0
 
     while i < len(left) and j < len(right):
         if left[i] < right[j]:
-            arr[k] = left[i]
+            res.append(left[i])
             i += 1
         else:
-            arr[k] = right[j]
+            res.append(right[j])
             j += 1
-        k += 1
 
-    # clear the rest of both
-    while i < len(left):
-        arr[k] = left[i]
-        i += 1
-        k += 1
-    while k < len(right):
-        arr[k] = right[j]
-        j += 1
-        k += 1
-
-"""
-arr = [5,4,3,2,1,]
-
-print("Array:", arr, "\nMedian --> ", find_median(arr))
-"""
+    res.extend(left[i:])
+    res.extend(right[j:])
+    return res
